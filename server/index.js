@@ -11,8 +11,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-  return res.json(SetData());
+app.get("/select_top_by_playtime", (req, res) => {
+    const { genre, platform } = req.query;
+  return res.json(SetData(genre, platform));
 });
 
 app.listen(process.env.PORT, () => {
