@@ -1,13 +1,15 @@
-import './App.css';
-import SelectTopByPlayers from './components/SelectTopByPlayers';
-import SelectTopByPlaytime from './components/SelectTopByPlaytime';
+import React from "react";
+import { Container } from "@material-ui/core";
+import SelectTopByPlayers from "./components/SelectTopByPlayers";
+import SelectTopByPlaytime from "./components/SelectTopByPlaytime";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
+    <Container>
       <SelectTopByPlayers />
       <SelectTopByPlaytime />
-    </div>
+    </Container>
   );
 }
 
