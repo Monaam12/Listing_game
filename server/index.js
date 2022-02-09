@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const SetData = require("./helpers/SetData")
 
 require("dotenv").config();
 
@@ -11,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("hello world !");
+  return res.json(SetData());
 });
 
 app.listen(process.env.PORT, () => {
