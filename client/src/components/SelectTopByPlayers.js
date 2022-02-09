@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import List from "../utils/List";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, TextField } from "@material-ui/core";
+import { Grid, TextField, Typography } from "@material-ui/core";
 import axios from "axios";
 
 const useStyles = makeStyles(() => ({
@@ -34,6 +34,11 @@ function SelectTopByPlayers() {
         alignItems="center"
         className={classes.marginTop}
       >
+        <Grid item xs={6}>
+          <Typography variant="h5" component="h2">
+            Top games by number of players
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             label="Genre"
@@ -53,7 +58,7 @@ function SelectTopByPlayers() {
           />
         </Grid>
       </Grid>
-      <List data={data} />
+      <List data={data} playtime={false} />
     </>
   );
 }

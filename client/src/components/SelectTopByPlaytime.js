@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, TextField } from "@material-ui/core";
-import List from "../utils/List"
+import { Grid, TextField, Typography } from "@material-ui/core";
+import List from "../utils/List";
 import axios from "axios";
 
 const useStyles = makeStyles(() => ({
-    marginTop: {
-      marginTop: 20,
-    },
-  }));
-  
+  marginTop: {
+    marginTop: 20,
+  },
+}));
 
 function SelectTopByPlaytime() {
-    const classes = useStyles();
-    const [genre, setGenre] = useState('')
-    const [platform, setPlatform] = useState('');
-    const [data, setData] = useState([])
+  const classes = useStyles();
+  const [genre, setGenre] = useState("");
+  const [platform, setPlatform] = useState("");
+  const [data, setData] = useState([]);
 
-    useEffect(() => {
-      return axios
-        .get(`${process.env.REACT_APP_BASE_URL}/select_top_by_playtime`, {
-          params: { genre, platform },
-        })
-        .then(({data}) => setData(data))
-        .catch((err) => console.error(err));
-    }, [genre, platform]);
+  useEffect(() => {
+    return axios
+      .get(`${process.env.REACT_APP_BASE_URL}/select_top_by_playtime`, {
+        params: { genre, platform },
+      })
+      .then(({ data }) => setData(data))
+      .catch((err) => console.error(err));
+  }, [genre, platform]);
 
   return (
     <>
@@ -35,6 +34,11 @@ function SelectTopByPlaytime() {
         alignItems="center"
         className={classes.marginTop}
       >
+        <Grid item xs={6}>
+          <Typography variant="h5" component="h2">
+            Top games by playtime
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             label="Genre"
@@ -54,9 +58,9 @@ function SelectTopByPlaytime() {
           />
         </Grid>
       </Grid>
-      <List data={data} />
+      <List data={data} playtime={true} />
     </>
   );
 }
 
-export default SelectTopByPlaytime
+export default SelectTopByPlaytime;
