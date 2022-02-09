@@ -25,7 +25,13 @@ app.get("/select_top_by_playtime", (req, res) => {
 
 app.get("/select_top_by_players", (req, res) => {
   const { genre, platform } = req.query;
-  return res.json(dataSet(genre, platform));
+  return res.json(
+        orderBy(
+            dataSet(genre, platform),
+            ['userId'],
+            ['desc']
+        )
+    );
 });
 
 app.listen(process.env.PORT, () => {
