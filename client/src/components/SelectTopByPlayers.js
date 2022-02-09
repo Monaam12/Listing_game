@@ -1,7 +1,14 @@
 import React from "react";
+import List from "../utils/List";
+import Search from "../utils/Search";
 
 function SelectTopByPlayers() {
-  return <div>SelectTopByPlayers</div>;
+  return (
+    <>
+      <Search />
+      <List />
+    </>
+  );
 }
 
 export default SelectTopByPlayers;
