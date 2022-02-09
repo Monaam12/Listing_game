@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dataSet = require("./helpers/dataSet");
+const { orderBy } = require("lodash");
 
 require("dotenv").config();
 
@@ -13,7 +14,13 @@ app.use(bodyParser.json());
 
 app.get("/select_top_by_playtime", (req, res) => {
   const { genre, platform } = req.query;
-  return res.json(dataSet(genre, platform));
+  return res.json(
+        orderBy(
+            dataSet(genre, platform),
+            ["playTime"],
+            ["desc"]
+        )
+    );
 });
 
 app.get("/select_top_by_players", (req, res) => {
