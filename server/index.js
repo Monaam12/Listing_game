@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const SetData = require("./helpers/SetData")
+const dataSet = require("./helpers/dataSet");
 
 require("dotenv").config();
 
@@ -12,8 +12,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/select_top_by_playtime", (req, res) => {
-    const { genre, platform } = req.query;
-  return res.json(SetData(genre, platform));
+  const { genre, platform } = req.query;
+  return res.json(dataSet(genre, platform));
+});
+
+app.get("/select_top_by_players", (req, res) => {
+  const { genre, platform } = req.query;
+  return res.json(dataSet(genre, platform));
 });
 
 app.listen(process.env.PORT, () => {
