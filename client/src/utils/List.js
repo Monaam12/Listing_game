@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-function List() {
+function List({ data }) {
   const classes = useStyles();
 
   return (
@@ -31,11 +31,18 @@ function List() {
           </TableRow>
         </TableHead>
         <TableBody>
-          
+          {data?.map((row, index) => (
+            <TableRow key={index}>
+              <TableCell align="center">{row.game}</TableCell>
+              <TableCell align="center">{row.platforms.join(", ")}</TableCell>
+              <TableCell align="center">{row.genre}</TableCell>
+              <TableCell align="center">{row.playTime}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
 
-export default List
+export default List;
