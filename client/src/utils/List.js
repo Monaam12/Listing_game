@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-function List({ data }) {
+function List({ data, playtime }) {
   const classes = useStyles();
 
   return (
@@ -25,18 +25,18 @@ function List({ data }) {
         <TableHead>
           <TableRow>
             <TableCell align="center">Game</TableCell>
-            <TableCell align="center">Platforms</TableCell>
             <TableCell align="center">Genre</TableCell>
-            <TableCell align="center">Total Play Time</TableCell>
+            <TableCell align="center">Platforms</TableCell>
+            <TableCell align="center">{playtime ? 'Total Play Time' : 'Number Of Players'}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {data?.map((row, index) => (
             <TableRow key={index}>
               <TableCell align="center">{row.game}</TableCell>
-              <TableCell align="center">{row.platforms.join(", ")}</TableCell>
               <TableCell align="center">{row.genre}</TableCell>
-              <TableCell align="center">{row.playTime}</TableCell>
+              <TableCell align="center">{row.platforms.join(", ")}</TableCell>
+              <TableCell align="center">{playtime ? row.playTime : row.userId}</TableCell>
             </TableRow>
           ))}
         </TableBody>
