@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, TextField, Typography } from "@material-ui/core";
 import List from "../utils/List";
-import axios from "axios";
+import { fetchData } from "../utils/fetchData";
 
 const useStyles = makeStyles(() => ({
   marginTop: {
@@ -17,12 +17,8 @@ function SelectTopByPlaytime() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    return axios
-      .get(`${process.env.REACT_APP_BASE_URL}/select_top_by_playtime`, {
-        params: { genre, platform },
-      })
-      .then(({ data }) => setData(data))
-      .catch((err) => console.error(err));
+    return fetchData("select_top_by_playtime", genre, platform)
+        .then((data) => setData(data));
   }, [genre, platform]);
 
   return (

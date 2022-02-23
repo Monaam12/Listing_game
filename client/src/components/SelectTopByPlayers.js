@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import List from "../utils/List";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, TextField, Typography } from "@material-ui/core";
-import axios from "axios";
+import { fetchData } from "../utils/fetchData";
 
 const useStyles = makeStyles(() => ({
   marginTop: {
@@ -15,15 +15,25 @@ function SelectTopByPlayers() {
   const [genre, setGenre] = useState("");
   const [platform, setPlatform] = useState("");
   const [data, setData] = useState([]);
+  const [global, setGlobal] = useState("");
+  const [datafilter, setDatafilter] = useState([]);
 
   useEffect(() => {
-    return axios
-      .get(`${process.env.REACT_APP_BASE_URL}/select_top_by_players`, {
-        params: { genre, platform },
-      })
-      .then(({ data }) => setData(data))
-      .catch((err) => console.error(err));
+    return fetchData("select_top_by_players", genre, platform)
+                .then(data => setData(data));
   }, [genre, platform]);
+
+  useEffect(() => {
+    const filter = data.filter((item) => {
+      if (global) {
+        return [...item.platforms, ...Object.values(item)].some((x) =>
+          x.toString().toLowerCase().match(global.toLowerCase())
+        );
+      }
+      return item;
+    });
+    setDatafilter(filter);
+  }, [global, data]);
 
   return (
     <>
@@ -34,10 +44,19 @@ function SelectTopByPlayers() {
         alignItems="center"
         className={classes.marginTop}
       >
-        <Grid item xs={6}>
+        <Grid item>
           <Typography variant="h5" component="h2">
             Top games by number of players
           </Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            label="Global"
+            type="search"
+            variant="outlined"
+            value={global}
+            onChange={(e) => setGlobal(e.target.value)}
+          />
         </Grid>
         <Grid item>
           <TextField
@@ -58,7 +77,7 @@ function SelectTopByPlayers() {
           />
         </Grid>
       </Grid>
-      <List data={data} playtime={false} />
+      <List data={datafilter} playtime={false} />
     </>
   );
 }
