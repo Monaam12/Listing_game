@@ -1,4 +1,4 @@
-# coding-offline `think-it` - `AbdelMonaam Aouini`
+# `listing games by top players or top playTime && filtering server-side and client-side`
 
 Install Dependencies for Backend and frontend :\
 
